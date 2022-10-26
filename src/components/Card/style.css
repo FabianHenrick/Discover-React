@@ -9,6 +9,7 @@
     justify-content: space-between;
     padding: 24px;
     color:white;
+    box-shadow: 3px 3px 3px black;
 }
 
 .card strong{
