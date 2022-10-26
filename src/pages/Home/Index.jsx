@@ -3,7 +3,20 @@ import './styles.css';
 import {Card} from '../../components/Card'
 export function Home() {
 
-  const[studentName, setStudentName] = useState();
+  const[studentName, setStudentName] = useState('');
+  const[students, setStudents] = useState([]);
+
+  function handleAddStudent(){
+    const newStudent = {
+      name:studentName,
+      time: new Date().toLocaleTimeString('pt-br',{
+        hour: '2-digit',
+        minute:'2-digit',
+        second: '2-digit',
+      })
+    }
+    setStudents(prevState =>[...prevState,newStudent])
+  }
 
   return (
     <div className="container">
@@ -13,11 +26,14 @@ export function Home() {
         placeholder="Digite o nome..."
         onChange={e => setStudentName(e.target.value)}
       />
-      <button type="button">Adcionar</button>
+      <button 
+      type="button"
+      onClick={handleAddStudent}
+      >Adcionar</button>
 
-      <Card name="Fabian" age="24" time="10:54:30"/>
-      <Card name="Sayuri" age="23"time="12:30:49"/>
-      <Card name="Robson" age="39" time="11:10:00"/>
+      {
+        students.map(student => <Card name={student.name}  time={student.time}/>)
+      }
     </div>
   )
 }
