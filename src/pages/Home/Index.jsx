@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles.css';
 import {Card} from '../../components/Card'
 export function Home() {
 
   const[studentName, setStudentName] = useState('');
   const[students, setStudents] = useState([]);
-
+  const [user,setUser] = useState({name:'', avatar:''})
   function handleAddStudent(){
     const newStudent = {
       name:studentName,
@@ -18,9 +18,30 @@ export function Home() {
     setStudents(prevState =>[...prevState,newStudent])
   }
 
+  useEffect(() => {
+    //corpo do useEffect
+    fetch('https://api.github.com/users/FabianHenrick')
+    .then(response => response.json())
+    .then(data =>{
+      setUser({
+        name:data.name,
+        avatar: data.avatar_url,
+      })
+
+    })
+    .catch(error => console.error(error))
+    console.groupCollapsed('useEffect foi chamado!')
+  },[])
+
   return (
     <div className="container">
-      <h1>Nome:{studentName}</h1>
+     <header>
+      <h1>Lista de Presença</h1>
+      <div><strong>{user.name}</strong>
+      <img src={user.avatar} alt="Foto de Perfil"></img>
+      </div>
+     </header>
+     
       <input 
         type="text" 
         placeholder="Digite o nome..."
