@@ -34,7 +34,9 @@ export function Home() {
   },[])
 
   return (
+    
     <div className="container">
+      <div class="d-flex flex-column justify-content-center w-100 h-100"></div>
      <header>
       <h1>Lista de Presença</h1>
       <div><strong>{user.name}</strong>
